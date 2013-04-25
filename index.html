@@ -12,20 +12,9 @@
   var LNG = '139.3';
   var ZOOM = '13';
 
-  L.TileLayer.prototype.getTileUrl = function (tilePoint) {
-    this._adjustTilePoint(tilePoint);
-    
-    var fileName = this._getZoomForUrl() + '-' + tilePoint.x + '-' + tilePoint.y + '.png';
-
-    var ret = L.Util.template(this._url, L.Util.extend({
-      f: fileName
-    }, this.options));
-    return ret;
-  };
-
   var map;
   window.onload = function() {
-    var layer = L.tileLayer('images/{f}', {
+    var layer = L.tileLayer('images/{z}-{x}-{y}.png', {
       minZoom: 0,
       maxZoom: 18,
       continuousWorld: true
