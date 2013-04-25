@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="http://leafletjs.com/dist/leaflet.css" />
+  <!--[if lte IE 8]>
+   <link rel="stylesheet" href="http://leafletjs.com/dist/leaflet.ie.css" />
+  <![endif]-->
+  <script src="http://leafletjs.com/dist/leaflet-src.js"></script>
+  <script>
+    var LAT = '35.3';
+    var LNG = '139.3';
+    var ZOOM = '13';
+
+    L.TileLayer.prototype.getTileUrl = function (tilePoint) {
+      this._adjustTilePoint(tilePoint);
+      
+      var fileName = this._getZoomForUrl() + '-' + tilePoint.x + '-' + tilePoint.y + '.png';
+
+      var ret = L.Util.template(this._url, L.Util.extend({
+        f: fileName
+      }, this.options));
+      return ret;
+    };
+
+    var map;
+    window.onload = function() {
+      map = L.map('map').setView([LAT, LNG], ZOOM);
+      var layer = L.tileLayer('images/{f}', {
+        minZoom: 0,
+        maxZoom: 13,
+        continuousWorld: true
+      });
+      
+      layer.addTo(map);
+    };
+  </script>
+</head>
+<body>
+  <div id="map" style="width: 400px; height: 400px;"></div>
+</body>
+</html>
