@@ -8,32 +8,30 @@
   <![endif]-->
   <script src="http://leafletjs.com/dist/leaflet-src.js"></script>
   <script>
-    var LAT = '35.3';
-    var LNG = '139.3';
-    var ZOOM = '13';
+  var LAT = '35.3';
+  var LNG = '139.3';
+  var ZOOM = '13';
 
-    L.TileLayer.prototype.getTileUrl = function (tilePoint) {
-      this._adjustTilePoint(tilePoint);
-      
-      var fileName = this._getZoomForUrl() + '-' + tilePoint.x + '-' + tilePoint.y + '.png';
+  L.TileLayer.prototype.getTileUrl = function (tilePoint) {
+    this._adjustTilePoint(tilePoint);
+    
+    var fileName = this._getZoomForUrl() + '-' + tilePoint.x + '-' + tilePoint.y + '.png';
 
-      var ret = L.Util.template(this._url, L.Util.extend({
-        f: fileName
-      }, this.options));
-      return ret;
-    };
+    var ret = L.Util.template(this._url, L.Util.extend({
+      f: fileName
+    }, this.options));
+    return ret;
+  };
 
-    var map;
-    window.onload = function() {
-      map = L.map('map').setView([LAT, LNG], ZOOM);
-      var layer = L.tileLayer('images/{f}', {
-        minZoom: 0,
-        maxZoom: 18,
-        continuousWorld: true
-      });
-      
-      layer.addTo(map);
-    };
+  var map;
+  window.onload = function() {
+    var layer = L.tileLayer('images/{f}', {
+      minZoom: 0,
+      maxZoom: 18,
+      continuousWorld: true
+    });
+    var map = L.map('map', { layers: [layer], center: [LAT, LNG], zoom: ZOOM });
+  };
   </script>
 </head>
 <body>
