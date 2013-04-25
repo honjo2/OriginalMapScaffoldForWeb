@@ -3,3 +3,6 @@
 
 # Leaflet
 - http://leafletjs.com/
+
+* その他
+- タイルはimagesフォルダを作ってそこに置くこと
